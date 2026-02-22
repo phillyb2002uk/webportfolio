@@ -26,7 +26,7 @@
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
       min-height: 100vh;
-      padding: 72px 24px 96px;
+      padding: 72px 0 96px;
     }
 
     body::before {
@@ -41,11 +41,12 @@
     .container {
       max-width: 960px;
       margin: 0 auto;
+      padding: 0 24px;
       position: relative;
       z-index: 1;
     }
 
-    /* PAGE TITLE */
+    /* ── PAGE TITLE ── */
     .page-header {
       margin-bottom: 64px;
       padding-bottom: 32px;
@@ -70,7 +71,7 @@
       line-height: 1.8;
     }
 
-    /* SECTION LABEL */
+    /* ── SECTION LABEL ── */
     .section-header {
       display: flex;
       align-items: center;
@@ -95,10 +96,143 @@
       background: var(--gunmetal-border);
     }
 
-    /* EXPERIENCE TIMELINE */
-    .experience {
-      margin-bottom: 72px;
+    /* ══════════════════════════════════════
+       PORTFOLIO TICKER
+    ══════════════════════════════════════ */
+    .ticker-section {
+      margin-bottom: 64px;
+      position: relative;
+      z-index: 1;
     }
+
+    .ticker-section .section-header {
+      padding: 0 24px;
+      max-width: 960px;
+      margin: 0 auto 16px;
+    }
+
+    /* Full-bleed track container */
+    .ticker-outer {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      border-top: 1px solid var(--gunmetal-border);
+      border-bottom: 1px solid var(--gunmetal-border);
+      background: var(--gunmetal-mid);
+      cursor: grab;
+      user-select: none;
+    }
+
+    .ticker-outer:active { cursor: grabbing; }
+
+    /* fade edges */
+    .ticker-outer::before,
+    .ticker-outer::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .ticker-outer::before {
+      left: 0;
+      background: linear-gradient(to right, var(--gunmetal-mid), transparent);
+    }
+
+    .ticker-outer::after {
+      right: 0;
+      background: linear-gradient(to left, var(--gunmetal-mid), transparent);
+    }
+
+    .ticker-track {
+      display: flex;
+      align-items: stretch;
+      width: max-content;
+      /* animation runs via JS so we can pause/resume on drag */
+    }
+
+    .ticker-card {
+      flex-shrink: 0;
+      width: 240px;
+      padding: 18px 20px;
+      border-right: 1px solid var(--gunmetal-border);
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .ticker-card:hover {
+      background: var(--gunmetal-light);
+      cursor: pointer;
+    }
+
+    .ticker-card.is-latest::after {
+      content: 'Latest';
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 8px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 1px 5px;
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+
+    .ticker-card-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--gunmetal-light);
+      border: 1px solid var(--gunmetal-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ticker-card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .ticker-card-thumb svg {
+      width: 22px; height: 22px;
+      color: var(--gunmetal-border);
+      opacity: 0.5;
+    }
+
+    .ticker-card-category {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .ticker-card-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .ticker-card-desc {
+      font-size: 11px;
+      color: var(--steel);
+      line-height: 1.65;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ── EXPERIENCE ── */
+    .experience { margin-bottom: 72px; }
 
     .exp-item {
       display: grid;
@@ -174,7 +308,53 @@
       border-radius: 2px;
     }
 
-    /* CLIENTS */
+    /* ── VIEW MORE ── */
+    .exp-hidden {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.4s ease;
+    }
+
+    .exp-hidden.open {
+      max-height: 2000px;
+      opacity: 1;
+    }
+
+    .view-more-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      background: none;
+      border: 1px solid var(--gunmetal-border);
+      color: var(--steel);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      border-radius: 2px;
+    }
+
+    .view-more-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .view-more-btn .btn-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .view-more-btn.open .btn-arrow { transform: rotate(180deg); }
+
+    /* ── CLIENTS ── */
+    .clients { margin-bottom: 0; }
+
     .logo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -197,8 +377,7 @@
     .logo-cell img {
       max-width: 120px;
       max-height: 48px;
-      width: auto;
-      height: auto;
+      width: auto; height: auto;
       object-fit: contain;
       filter: grayscale(100%) brightness(0.5) invert(1);
       opacity: 0.42;
@@ -210,34 +389,166 @@
       filter: grayscale(100%) brightness(0.68) invert(1);
     }
 
-    /* ANIMATIONS */
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(15,17,19,0.92);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox-inner {
+      background: var(--gunmetal-mid);
+      border: 1px solid var(--gunmetal-border);
+      max-width: 720px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .lightbox-img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--gunmetal-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gunmetal-border);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .lightbox-body { padding: 24px 28px 28px; }
+
+    .lightbox-category {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .lightbox-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 3px;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .lightbox-desc {
+      font-size: 13px;
+      color: var(--steel);
+      line-height: 1.8;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px; right: 14px;
+      background: none;
+      border: none;
+      color: var(--steel);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover { color: var(--white); }
+
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .page-header { animation: fadeUp 0.45s ease 0.05s both; }
-    .experience  { animation: fadeUp 0.45s ease 0.15s both; }
-    .clients     { animation: fadeUp 0.45s ease 0.25s both; }
+    .page-header    { animation: fadeUp 0.45s ease 0.05s both; }
+    .ticker-section { animation: fadeUp 0.45s ease 0.10s both; }
+    .experience     { animation: fadeUp 0.45s ease 0.18s both; }
+    .clients        { animation: fadeUp 0.45s ease 0.25s both; }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .exp-item { grid-template-columns: 1fr; }
       .exp-dates { margin-bottom: 6px; }
       .logo-grid { grid-template-columns: 1fr; }
       .logo-cell { border-right: none; border-bottom: 1px solid var(--gunmetal-border); }
       .logo-cell:last-child { border-bottom: none; }
+      .ticker-card { width: 200px; }
     }
   </style>
 </head>
 <body>
 <div class="container">
-
   <!-- PAGE TITLE -->
   <header class="page-header">
     <h1>Phil Beeson</h1>
     <p class="tagline">Technical, Data &amp; Business Analyst &nbsp;·&nbsp; Power BI &amp; Excel Enthusiast &nbsp;·&nbsp; Your AI-Supported Data &amp; Systems Swiss Army Knife</p>
   </header>
+</div>
+
+<!-- PORTFOLIO TICKER — full bleed -->
+<section class="ticker-section">
+  <div class="section-header container">
+    <h2>Portfolio</h2>
+  </div>
+
+  <div class="ticker-outer" id="tickerOuter">
+    <div class="ticker-track" id="tickerTrack">
+
+      <!-- Cards ordered oldest → newest (latest on right) -->
+
+      <div class="ticker-card" onclick="openLight(0)">
+        <div class="ticker-card-thumb">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="ticker-card-category">Project Management</div>
+        <div class="ticker-card-title">SAP Enterprise Rollout</div>
+        <p class="ticker-card-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
+      </div>
+
+      <div class="ticker-card" onclick="openLight(1)">
+        <div class="ticker-card-thumb">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="ticker-card-category">Data Analysis</div>
+        <div class="ticker-card-title">Parliamentary Asset Reporting</div>
+        <p class="ticker-card-desc">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.</p>
+      </div>
+
+      <div class="ticker-card" onclick="openLight(2)">
+        <div class="ticker-card-thumb">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="ticker-card-category">Systems Implementation</div>
+        <div class="ticker-card-title">Build-to-Rent Platform Rollout</div>
+        <p class="ticker-card-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
+      </div>
+
+      <div class="ticker-card is-latest" onclick="openLight(3)">
+        <div class="ticker-card-thumb">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="ticker-card-category">Power BI</div>
+        <div class="ticker-card-title">Lettings Performance Dashboard</div>
+        <p class="ticker-card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </div>
+
+    </div><!-- /ticker-track -->
+  </div><!-- /ticker-outer -->
+</section>
+
+<div class="container">
 
   <!-- EXPERIENCE -->
   <section class="experience">
@@ -288,66 +599,73 @@
       </div>
     </div>
 
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Mar 2019 — Oct 2019</div>
-        <div class="exp-duration">8 mos</div>
+    <!-- OLDER ROLES — hidden -->
+    <div class="exp-hidden" id="exp-more">
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Mar 2019 — Oct 2019</div>
+          <div class="exp-duration">8 mos</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Project Manager</div>
+          <div class="exp-company">ISB Global</div>
+          <p class="exp-desc">SAP implementation and enterprise system project management, delivering rollouts for clients across the UK.</p>
+          <div class="exp-tags">
+            <span class="tag">SAP</span><span class="tag">Project Management</span>
+          </div>
+        </div>
       </div>
-      <div class="exp-body">
-        <div class="exp-role">Project Manager</div>
-        <div class="exp-company">ISB Global</div>
-        <p class="exp-desc">SAP implementation and enterprise system project management, delivering rollouts for clients across the UK.</p>
-        <div class="exp-tags">
-          <span class="tag">SAP</span><span class="tag">Project Management</span>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Mar 2018 — Mar 2019</div>
+          <div class="exp-duration">1 yr 1 mo</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Engagement Manager</div>
+          <div class="exp-company">Parliamentary Digital Service</div>
+          <p class="exp-desc">Managed stakeholder engagement, training delivery, and change management programmes across the organisation.</p>
+          <div class="exp-tags">
+            <span class="tag">Training</span><span class="tag">Change Management</span><span class="tag">Stakeholder Engagement</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Mar 2016 — Mar 2018</div>
+          <div class="exp-duration">2 yrs</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Implementation &amp; Project Manager</div>
+          <div class="exp-company">Sainsbury's</div>
+          <p class="exp-desc">Led Kronos workforce management implementations across field-based store locations, covering payroll administration, training delivery, and new store setup.</p>
+          <div class="exp-tags">
+            <span class="tag">Kronos WFM</span><span class="tag">Payroll</span><span class="tag">Training</span><span class="tag">New Store Setup</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Aug 2015 — Mar 2016</div>
+          <div class="exp-duration">8 mos</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Online Manager</div>
+          <div class="exp-company">DAI</div>
+          <p class="exp-desc">Managed online operations for this independent British software solutions delivery company, based at Lewes Road, Brighton.</p>
+          <div class="exp-tags">
+            <span class="tag">Operations</span><span class="tag">Software Delivery</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Mar 2018 — Mar 2019</div>
-        <div class="exp-duration">1 yr 1 mo</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Engagement Manager</div>
-        <div class="exp-company">Parliamentary Digital Service</div>
-        <p class="exp-desc">Managed stakeholder engagement, training delivery, and change management programmes across the organisation.</p>
-        <div class="exp-tags">
-          <span class="tag">Training</span><span class="tag">Change Management</span><span class="tag">Stakeholder Engagement</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Mar 2016 — Mar 2018</div>
-        <div class="exp-duration">2 yrs</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Implementation &amp; Project Manager</div>
-        <div class="exp-company">Sainsbury's</div>
-        <p class="exp-desc">Led Kronos workforce management implementations across field-based store locations, covering payroll administration, training delivery, and new store setup.</p>
-        <div class="exp-tags">
-          <span class="tag">Kronos WFM</span><span class="tag">Payroll</span><span class="tag">Training</span><span class="tag">New Store Setup</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Aug 2015 — Mar 2016</div>
-        <div class="exp-duration">8 mos</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Online Manager</div>
-        <div class="exp-company">DAI</div>
-        <p class="exp-desc">Managed online operations for this independent British software solutions delivery company, based at Lewes Road, Brighton.</p>
-        <div class="exp-tags">
-          <span class="tag">Operations</span><span class="tag">Software Delivery</span>
-        </div>
-      </div>
-    </div>
-
+    <button class="view-more-btn" id="exp-toggle" onclick="toggleExp()">
+      <span class="btn-label">View More</span>
+      <span class="btn-arrow">↓</span>
+    </button>
   </section>
 
   <!-- CLIENTS -->
@@ -366,6 +684,159 @@
     </div>
   </section>
 
+</div><!-- /container -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLight(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightDirect()">✕</button>
+    <div class="lightbox-img-placeholder"><span>No image uploaded yet</span></div>
+    <div class="lightbox-body">
+      <div class="lightbox-category" id="lb-cat"></div>
+      <div class="lightbox-title" id="lb-title"></div>
+      <p class="lightbox-desc" id="lb-desc"></p>
+    </div>
+  </div>
 </div>
+
+<script>
+  /* ── EXPERIENCE TOGGLE ── */
+  function toggleExp() {
+    const more  = document.getElementById('exp-more');
+    const btn   = document.getElementById('exp-toggle');
+    const label = btn.querySelector('.btn-label');
+    more.classList.toggle('open');
+    btn.classList.toggle('open');
+    label.textContent = more.classList.contains('open') ? 'View Less' : 'View More';
+  }
+
+  /* ── LIGHTBOX ── */
+  const projects = [
+    {
+      category: 'Project Management',
+      title: 'SAP Enterprise Rollout',
+      desc: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.'
+    },
+    {
+      category: 'Data Analysis',
+      title: 'Parliamentary Asset Management Reporting',
+      desc: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.'
+    },
+    {
+      category: 'Systems Implementation',
+      title: 'Build-to-Rent Platform Rollout',
+      desc: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.'
+    },
+    {
+      category: 'Power BI',
+      title: 'Lettings Performance Dashboard',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+    }
+  ];
+
+  function openLight(i) {
+    const p = projects[i];
+    document.getElementById('lb-cat').textContent   = p.category;
+    document.getElementById('lb-title').textContent = p.title;
+    document.getElementById('lb-desc').textContent  = p.desc;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLight(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightDirect();
+  }
+
+  function closeLightDirect() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightDirect(); });
+
+  /* ── TICKER: AUTO-SCROLL + DRAG ── */
+  const outer  = document.getElementById('tickerOuter');
+  const track  = document.getElementById('tickerTrack');
+
+  // Auto-scroll state
+  let scrollPos  = 0;
+  let speed      = 0.6;   // px per frame
+  let paused     = false;
+  let rafId      = null;
+
+  // Drag state
+  let isDragging    = false;
+  let dragStartX    = 0;
+  let dragStartScroll = 0;
+  let didDrag       = false;  // distinguish click from drag
+
+  function autoScroll() {
+    if (!paused && !isDragging) {
+      scrollPos += speed;
+      const maxScroll = track.scrollWidth - outer.clientWidth;
+      if (scrollPos >= maxScroll) scrollPos = 0;   // loop back
+      outer.scrollLeft = scrollPos;
+    }
+    rafId = requestAnimationFrame(autoScroll);
+  }
+
+  rafId = requestAnimationFrame(autoScroll);
+
+  // Pause on hover
+  outer.addEventListener('mouseenter', () => { paused = true; });
+  outer.addEventListener('mouseleave', () => { if (!isDragging) paused = false; });
+
+  // Mouse drag
+  outer.addEventListener('mousedown', e => {
+    isDragging    = true;
+    didDrag       = false;
+    dragStartX    = e.clientX;
+    dragStartScroll = outer.scrollLeft;
+    paused        = true;
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragStartX;
+    if (Math.abs(dx) > 4) didDrag = true;
+    const newScroll = dragStartScroll - dx;
+    outer.scrollLeft = newScroll;
+    scrollPos = outer.scrollLeft;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    paused     = false;
+  });
+
+  // Touch drag
+  outer.addEventListener('touchstart', e => {
+    isDragging      = true;
+    didDrag         = false;
+    dragStartX      = e.touches[0].clientX;
+    dragStartScroll = outer.scrollLeft;
+    paused          = true;
+  }, { passive: true });
+
+  outer.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - dragStartX;
+    if (Math.abs(dx) > 4) didDrag = true;
+    outer.scrollLeft = dragStartScroll - dx;
+    scrollPos = outer.scrollLeft;
+  }, { passive: true });
+
+  outer.addEventListener('touchend', () => {
+    isDragging = false;
+    paused     = false;
+  });
+
+  // Prevent click-open on cards if user was dragging
+  outer.addEventListener('click', e => {
+    if (didDrag) { e.stopPropagation(); didDrag = false; }
+  }, true);
+</script>
 </body>
 </html>
