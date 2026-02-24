@@ -225,6 +225,29 @@
       line-height: 1.85;
     }
 
+    .article-published {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--gunmetal-border);
+      font-size: 9.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gunmetal-border);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .article-published::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gunmetal-border);
+      flex-shrink: 0;
+    }
+
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
@@ -255,10 +278,10 @@
   <section>
     <div class="section-header"><h2>Portfolio</h2></div>
 
-    <div class="portfolio-list">
+    <div class="portfolio-list" id="portfolio-list">
 
-      <!-- Article 1 -->
-      <div class="article-block">
+      <!-- Article 1 — oldest, rank 1 -->
+      <div class="article-block" data-rank="1" data-date="2019-03">
         <div class="article-img">
           <div class="placeholder-icon">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -272,11 +295,12 @@
           <div class="article-category">Project Management</div>
           <div class="article-title">SAP Enterprise Rollout</div>
           <p class="article-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <div class="article-published">Published Mar 2019</div>
         </div>
       </div>
 
-      <!-- Article 2 -->
-      <div class="article-block">
+      <!-- Article 2 — rank 2 -->
+      <div class="article-block" data-rank="2" data-date="2020-02">
         <div class="article-img">
           <div class="placeholder-icon">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -290,11 +314,12 @@
           <div class="article-category">Data Analysis</div>
           <div class="article-title">Parliamentary Asset Management Reporting</div>
           <p class="article-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</p>
+          <div class="article-published">Published Feb 2020</div>
         </div>
       </div>
 
-      <!-- Article 3 -->
-      <div class="article-block">
+      <!-- Article 3 — rank 3 -->
+      <div class="article-block" data-rank="3" data-date="2021-06">
         <div class="article-img">
           <div class="placeholder-icon">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -308,11 +333,12 @@
           <div class="article-category">Systems Implementation</div>
           <div class="article-title">Build-to-Rent Platform Rollout</div>
           <p class="article-desc">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga et harum quidem rerum.</p>
+          <div class="article-published">Published Jun 2021</div>
         </div>
       </div>
 
-      <!-- Article 4 — Latest, real image -->
-      <div class="article-block">
+      <!-- Article 4 — latest, rank 4 -->
+      <div class="article-block" data-rank="4" data-date="2023-11">
         <div class="article-img">
           <img
             src="https://raw.githubusercontent.com/philbeeson84/webportfolio/0082ed69ce290850f46cce6900edd0536b1498cc/pbi_lettingsanalysis1.png"
@@ -320,10 +346,10 @@
           />
         </div>
         <div class="article-body">
-          <span class="article-latest">Latest</span>
           <div class="article-category">Power BI</div>
           <div class="article-title">Lettings Performance Dashboard</div>
           <p class="article-desc">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+          <div class="article-published">Published Nov 2023</div>
         </div>
       </div>
 
@@ -331,6 +357,16 @@
   </section>
 
 </div><!-- /container -->
+
+<script>
+  // Sort .article-block elements by data-rank descending (highest rank = top of page)
+  const list  = document.getElementById('portfolio-list');
+  const items = Array.from(list.querySelectorAll('.article-block'));
+
+  items
+    .sort((a, b) => Number(b.dataset.rank) - Number(a.dataset.rank))
+    .forEach(item => list.appendChild(item));
+</script>
 
 </body>
 </html>
