@@ -1,1 +1,20 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <link rel="stylesheet" href="styles.css">\n    <title>Web Portfolio</title>\n    <script>\n        async function fetchData() {\n            try {\n                const response = await fetch('data.json');\n                const data = await response.json();\n                renderPortfolio(data);\n            } catch (error) {\n                console.error('Error fetching data:', error);\n            }\n        }\n        function renderPortfolio(data) {\n            const portfolioContainer = document.getElementById('portfolio');\n            data.portfolioItems.forEach(item => {\n                const div = document.createElement('div');\n                div.className = 'portfolio-item';\n                div.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p>`;\n                portfolioContainer.appendChild(div);\n            });\n        }\n        window.onload = fetchData;\n    <\/script>\n</head>\n<body>\n    <header>\n        <h1>Welcome to My Portfolio</h1>\n    </header>\n    <main>\n        <section id="portfolio">\n            <h2>My Projects</h2>\n        </section>\n        <section id="experience">\n            <h2>Experience</h2>\n            <!-- Render experience items here -->\n        </section>\n        <section id="clients">\n            <h2>Clients</h2>\n            <!-- Render clients here -->\n        </section>\n    </main>\n    <footer>\n        <p>© 2026 Phil Beeson</p>\n    </footer>\n</body>\n</html>\n
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Portfolio</title>
+</head>
+<body>
+    <header>
+        <h1>My Portfolio</h1>
+    </header>
+    <main>
+        <section id="portfolio"></section>
+        <section id="experience"></section>
+        <section id="clients"></section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
