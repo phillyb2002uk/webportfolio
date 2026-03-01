@@ -211,116 +211,29 @@
 
   <section class="experience">
     <div class="section-header"><h2>Experience</h2></div>
-
-    <!-- TOP ROLES — always visible -->
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Sep 2022 — Present</div>
-        <div class="exp-duration">3 yrs 6 mos</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Business Systems Analyst</div>
-        <div class="exp-company">Kinleigh Folkard &amp; Hayward</div>
-        <p class="exp-desc">Implemented and project managed three new systems across the Lettings, Build-to-Rent, and Block Management divisions. Product managed build-to-rent products. Lead Power BI developer and Excel specialist.</p>
-        <div class="exp-tags">
-          <span class="tag">Power BI</span><span class="tag">M Query</span><span class="tag">Excel</span><span class="tag">Project Management</span><span class="tag">Systems Analysis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Feb 2020 — Sep 2022</div>
-        <div class="exp-duration">2 yrs 8 mos</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Senior Implementation Analyst</div>
-        <div class="exp-company">Parliamentary Digital Service</div>
-        <p class="exp-desc">Led the technical support team delivering configuration, change request, and lifecycle upgrade processes across multiple project workstreams and BAU. Used JIRA, Cherwell, AutoDesk, Revit, and VS Code for HTML, CSS, and XML changes.</p>
-        <div class="exp-tags">
-          <span class="tag">JIRA</span><span class="tag">Data Visualisation</span><span class="tag">HTML / CSS / XML</span><span class="tag">Change Management</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Nov 2019 — Feb 2020</div>
-        <div class="exp-duration">4 mos</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Business Implementation Analyst</div>
-        <div class="exp-company">Parliamentary Digital Service</div>
-        <p class="exp-desc">Delivered software implementation services streamlining business processes for buildings, people, and assets in the real estate and facilities management sector.</p>
-        <div class="exp-tags">
-          <span class="tag">Microsoft Office</span><span class="tag">System Configuration</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Mar 2019 — Oct 2019</div>
-        <div class="exp-duration">8 mos</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Project Manager</div>
-        <div class="exp-company">ISB Global</div>
-        <p class="exp-desc">SAP implementation and enterprise system project management, delivering rollouts for clients across the UK.</p>
-        <div class="exp-tags">
-          <span class="tag">SAP</span><span class="tag">Project Management</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Mar 2018 — Mar 2019</div>
-        <div class="exp-duration">1 yr 1 mo</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Engagement Manager</div>
-        <div class="exp-company">Parliamentary Digital Service</div>
-        <p class="exp-desc">Managed stakeholder engagement, training delivery, and change management programmes across the organisation.</p>
-        <div class="exp-tags">
-          <span class="tag">Training</span><span class="tag">Change Management</span><span class="tag">Stakeholder Engagement</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Mar 2016 — Mar 2018</div>
-        <div class="exp-duration">2 yrs</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Implementation &amp; Project Manager</div>
-        <div class="exp-company">Sainsburys</div>
-        <p class="exp-desc">Led Kronos workforce management implementations across field-based store locations, covering payroll administration, training delivery, and new store setup.</p>
-        <div class="exp-tags">
-          <span class="tag">Kronos WFM</span><span class="tag">Payroll</span><span class="tag">Training</span><span class="tag">New Store Setup</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-dates">Aug 2015 — Mar 2016</div>
-        <div class="exp-duration">8 mos</div>
-      </div>
-      <div class="exp-body">
-        <div class="exp-role">Online Manager</div>
-        <div class="exp-company">Sainsburys</div>
-        <p class="exp-desc">Managed online operations for this independent British software solutions delivery company, based at Lewes Road, Brighton.</p>
-        <div class="exp-tags">
-          <span class="tag">Operations</span><span class="tag">Software Delivery</span>
-        </div>
-      </div>
-    </div>
-
+    <div id="exp-list"></div>
   </section>
 
 </div>
 
+<script src="data.js"></script>
+<script>
+  // Sort by startDate descending (newest first)
+  const sorted = [...experienceData].sort((a, b) => b.startDate.localeCompare(a.startDate));
+
+  document.getElementById('exp-list').innerHTML = sorted.map(e => `
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-dates">${fmtDate(e.startDate)} — ${fmtDate(e.endDate)}</div>
+        <div class="exp-duration">${fmtDuration(e.startDate, e.endDate)}</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">${e.role}</div>
+        <div class="exp-company">${e.employer}</div>
+        <p class="exp-desc">${e.description}</p>
+        <div class="exp-tags">${e.skills.map(s => `<span class="tag">${s}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+</script>
 </body>
 </html>

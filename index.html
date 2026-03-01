@@ -326,7 +326,7 @@
     ══════════════════════════════════════ */
     .logo-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 1px;
       background: var(--gunmetal-border);
       border: 1px solid var(--gunmetal-border);
@@ -401,56 +401,13 @@
         <a class="view-all" href="portfolio.html">View all →</a>
       </div>
       <div class="portfolio-inner">
-
-        <!-- Left: article list -->
-        <div class="article-list">
-
-          <div class="article-row">
-            <div class="article-row-info">
-              <div class="article-row-category">Project Management</div>
-              <div class="article-row-title">SAP Enterprise Rollout</div>
-            </div>
-          </div>
-
-          <div class="article-row">
-            <div class="article-row-info">
-              <div class="article-row-category">Data Analysis</div>
-              <div class="article-row-title">Parliamentary Asset Management Reporting</div>
-            </div>
-          </div>
-
-          <div class="article-row">
-            <div class="article-row-info">
-              <div class="article-row-category">Systems Implementation</div>
-              <div class="article-row-title">Build-to-Rent Platform Rollout</div>
-            </div>
-          </div>
-
-          <div class="article-row">
-            <div class="article-row-info">
-              <div class="article-row-category">Power BI</div>
-              <div class="article-row-title">Lettings Performance Dashboard</div>
-            </div>
-          </div>
-
-        </div><!-- /article-list -->
-
-        <!-- Right: thumbnail panel -->
+        <div class="article-list" id="article-list"></div>
         <div class="portfolio-thumb-panel">
-          <div class="portfolio-thumb-img" id="thumbImgArea">
-            <img id="thumbImg"
-              src="https://raw.githubusercontent.com/philbeeson84/webportfolio/0082ed69ce290850f46cce6900edd0536b1498cc/pbi_lettingsanalysis1.png"
-              alt="Lettings Performance Dashboard"
-            />
-          </div>
-          <div class="portfolio-thumb-meta" id="thumbMeta">
-            <div class="thumb-cat" id="thumbCat">Power BI</div>
-            <div class="thumb-title" id="thumbTitle">Lettings Performance Dashboard</div>
-          </div>
+          <div class="portfolio-thumb-img" id="thumbImgArea"></div>
+          <div class="portfolio-thumb-meta" id="thumbMeta"></div>
         </div>
-
-      </div><!-- /portfolio-inner -->
-    </div><!-- /block-portfolio -->
+      </div>
+    </div>
 
     <!-- EXPERIENCE BLOCK -->
     <div class="block block-experience">
@@ -458,120 +415,79 @@
         <h2>Experience</h2>
         <a class="view-all" href="experience.html">View detail →</a>
       </div>
-      <div class="exp-summary-list">
-
-        <div class="exp-summary-item">
-          <div class="exp-sum-left">
-            <div class="exp-sum-role">Business Systems Analyst</div>
-            <div class="exp-sum-company">Kinleigh Folkard &amp; Hayward</div>
-          </div>
-          <div class="exp-sum-dates">Sep 2022 — Present</div>
-        </div>
-
-        <div class="exp-summary-item">
-          <div class="exp-sum-left">
-            <div class="exp-sum-role">Senior Implementation Analyst</div>
-            <div class="exp-sum-company">Parliamentary Digital Service</div>
-          </div>
-          <div class="exp-sum-dates">Feb 2020 — Sep 2022</div>
-        </div>
-
-        <div class="exp-summary-item">
-          <div class="exp-sum-left">
-            <div class="exp-sum-role">Business Implementation Analyst</div>
-            <div class="exp-sum-company">Eptura</div>
-          </div>
-          <div class="exp-sum-dates">Nov 2019 — Feb 2020</div>
-        </div>
-
-        <div class="exp-summary-item">
-          <div class="exp-sum-left">
-            <div class="exp-sum-role">Project Manager</div>
-            <div class="exp-sum-company">ISB Global</div>
-          </div>
-          <div class="exp-sum-dates">Mar 2019 — Oct 2019</div>
-        </div>
-
-        <div class="exp-summary-item">
-          <div class="exp-sum-left">
-            <div class="exp-sum-role">Engagement Manager</div>
-            <div class="exp-sum-company">Parliamentary Digital Service</div>
-          </div>
-          <div class="exp-sum-dates">Mar 2018 — Mar 2019</div>
-        </div>
-
-        <div class="exp-summary-item">
-          <div class="exp-sum-left">
-            <div class="exp-sum-role">Implementation &amp; Project Manager</div>
-            <div class="exp-sum-company">Sainsbury's</div>
-          </div>
-          <div class="exp-sum-dates">Mar 2016 — Mar 2018</div>
-        </div>
-
-        <div class="exp-summary-item">
-          <div class="exp-sum-left">
-            <div class="exp-sum-role">Online Manager</div>
-            <div class="exp-sum-company">DAI</div>
-          </div>
-          <div class="exp-sum-dates">Aug 2015 — Mar 2016</div>
-        </div>
-
-      </div>
-    </div><!-- /block-experience -->
+      <div class="exp-summary-list" id="exp-summary-list"></div>
+    </div>
 
     <!-- CLIENTS BLOCK -->
     <div class="block block-clients">
       <div class="section-header">
         <h2>Who I Have Worked With</h2>
       </div>
-      <div class="logo-grid">
-        <div class="logo-cell">
-          <img src="https://philbeeson.files.wordpress.com/2021/07/digital-service-primary-rgb-1500x526-1.png?w=1024" alt="Parliamentary Digital Service" />
-        </div>
-        <div class="logo-cell">
-          <img src="https://philbeeson.files.wordpress.com/2021/07/sainsburys-logo.png?w=1024" alt="Sainsbury's" />
-        </div>
-        <div class="logo-cell">
-          <img src="https://philbeeson.files.wordpress.com/2021/07/isb-global-logo.png?w=437" alt="ISB Global" />
-        </div>
-      </div>
-    </div><!-- /block-clients -->
+      <div class="logo-grid" id="logo-grid"></div>
+    </div>
 
   </div><!-- /bento -->
 
 </div><!-- /container -->
 
+<script src="data.js"></script>
 <script>
-  // Thumbnail is selected via the isThumb flag in the data — no UI interaction needed.
-  const articles = [
-    { category: 'Project Management',     title: 'SAP Enterprise Rollout',                   image: null,     isThumb: false },
-    { category: 'Data Analysis',          title: 'Parliamentary Asset Management Reporting', image: null,     isThumb: false },
-    { category: 'Systems Implementation', title: 'Build-to-Rent Platform Rollout',           image: null,     isThumb: false },
-    { category: 'Power BI',               title: 'Lettings Performance Dashboard',
-      image: 'https://raw.githubusercontent.com/philbeeson84/webportfolio/0082ed69ce290850f46cce6900edd0536b1498cc/pbi_lettingsanalysis1.png',
-      isThumb: true }
-  ];
+  // ── PORTFOLIO SUMMARY ──────────────────────────────────────
+  // Sort by rank descending (highest first)
+  const sortedPortfolio = [...portfolioData].sort((a, b) => b.rank - a.rank);
 
-  function renderThumb() {
-    const thumbArticle = articles.find(a => a.isThumb) || null;
-    const area = document.getElementById('thumbImgArea');
-    const meta = document.getElementById('thumbMeta');
+  // Article list
+  const articleList = document.getElementById('article-list');
+  articleList.innerHTML = sortedPortfolio.map(a => `
+    <div class="article-row">
+      <div class="article-row-info">
+        <div class="article-row-category">${a.category}</div>
+        <div class="article-row-title">${a.title}</div>
+      </div>
+    </div>`).join('');
 
-    if (!thumbArticle) {
-      area.innerHTML = `<div class="placeholder-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>No thumbnail selected</span></div>`;
-      meta.innerHTML = '<div class="thumb-empty">No thumbnail set</div>';
-      return;
-    }
+  // Thumbnail panel — driven by isThumb flag
+  const thumbArticle = portfolioData.find(a => a.isThumb) || null;
+  const thumbImgArea = document.getElementById('thumbImgArea');
+  const thumbMeta    = document.getElementById('thumbMeta');
 
-    if (thumbArticle.image) {
-      area.innerHTML = `<img src="${thumbArticle.image}" alt="${thumbArticle.title}" style="width:100%;height:100%;object-fit:cover;display:block;"/>`;
-    } else {
-      area.innerHTML = `<div class="placeholder-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>No image uploaded yet</span></div>`;
-    }
-    meta.innerHTML = `<div class="thumb-cat">${thumbArticle.category}</div><div class="thumb-title">${thumbArticle.title}</div>`;
+  if (!thumbArticle) {
+    thumbImgArea.innerHTML = _PLACEHOLDER_SVG;
+    thumbMeta.innerHTML    = '<div class="thumb-empty">No thumbnail set</div>';
+  } else if (thumbArticle.thumbnailUrl) {
+    thumbImgArea.innerHTML = `<img src="${thumbArticle.thumbnailUrl}" alt="${thumbArticle.title}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+    thumbMeta.innerHTML    = `<div class="thumb-cat">${thumbArticle.category}</div><div class="thumb-title">${thumbArticle.title}</div>`;
+  } else {
+    thumbImgArea.innerHTML = _PLACEHOLDER_SVG;
+    thumbMeta.innerHTML    = `<div class="thumb-cat">${thumbArticle.category}</div><div class="thumb-title">${thumbArticle.title}</div>`;
   }
 
-  renderThumb();
+  // ── EXPERIENCE SUMMARY ─────────────────────────────────────
+  // Sort by startDate descending (newest first)
+  const sortedExp = [...experienceData].sort((a, b) => b.startDate.localeCompare(a.startDate));
+
+  document.getElementById('exp-summary-list').innerHTML = sortedExp.map(e => `
+    <div class="exp-summary-item">
+      <div class="exp-sum-left">
+        <div class="exp-sum-role">${e.role}</div>
+        <div class="exp-sum-company">${e.employer}</div>
+      </div>
+      <div class="exp-sum-dates">${fmtDate(e.startDate)} — ${fmtDate(e.endDate)}</div>
+    </div>`).join('');
+
+  // ── CLIENTS ────────────────────────────────────────────────
+  // Deduplicate by employer, only show those with a logoUrl
+  const seen   = new Set();
+  const logos  = experienceData.filter(e => {
+    if (!e.logoUrl || seen.has(e.employer)) return false;
+    seen.add(e.employer);
+    return true;
+  });
+
+  document.getElementById('logo-grid').innerHTML = logos.map(e => `
+    <div class="logo-cell">
+      <img src="${e.logoUrl}" alt="${e.employer}" />
+    </div>`).join('');
 </script>
 </body>
 </html>
